@@ -68,11 +68,11 @@ const Navbar = () => {
             <motion.div 
               whileHover={{ rotate: 180 }} 
               transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#4eb7b3] to-[#98e1d7] flex items-center justify-center shadow-sm"
+              className="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-600 to-indigo-400 flex items-center justify-center shadow-md"
             >
               <span className="text-white font-bold text-xl leading-none tracking-tighter">D</span>
             </motion.div>
-            <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#3b8ea0] to-[#4eb7b3]">
+            <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-indigo-600">
               DailyForge
             </span>
           </Link>
@@ -86,10 +86,10 @@ const Navbar = () => {
                   to={link.path}
                   className={({ isActive }) =>
                     cn(
-                      "px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 flex items-center gap-2",
+                      "px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center gap-2",
                       isActive
-                        ? "bg-[#d0f6e3] text-[#3b8ea0] shadow-sm"
-                        : "text-[#4eb7b3] hover:bg-[#d0f6e3]/50 hover:text-[#3b8ea0]"
+                        ? "bg-indigo-50 text-indigo-600 shadow-sm border border-indigo-100/50"
+                        : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
                     )
                   }
                 >
@@ -106,7 +106,7 @@ const Navbar = () => {
               <>
                 <Link
                   to="/login"
-                  className="text-sm font-medium text-[#4eb7b3] hover:text-[#3b8ea0] transition-colors px-4 py-2 rounded-xl hover:bg-[#d0f6e3]/50"
+                  className="text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors px-4 py-2 rounded-xl hover:bg-slate-100"
                 >
                   Login
                 </Link>
@@ -132,7 +132,7 @@ const Navbar = () => {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-xl text-[#3b8ea0] hover:bg-[#d0f6e3] transition-colors focus:outline-none"
+              className="p-2 rounded-xl text-slate-600 hover:bg-slate-100 transition-colors focus:outline-none"
               aria-label="Toggle menu"
             >
               <AnimatePresence mode="wait">
@@ -169,10 +169,10 @@ const Navbar = () => {
                   onClick={() => setIsOpen(false)}
                   className={({ isActive }) =>
                     cn(
-                      "px-4 py-3 rounded-xl text-base font-medium transition-colors flex items-center gap-3 w-full",
+                      "px-4 py-3 rounded-xl text-base font-semibold transition-colors flex items-center gap-3 w-full",
                       isActive
-                        ? "bg-[#d0f6e3] text-[#3b8ea0]"
-                        : "text-[#4eb7b3] hover:bg-[#d0f6e3]/50 hover:text-[#3b8ea0]"
+                        ? "bg-indigo-50 text-indigo-600"
+                        : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                     )
                   }
                 >
@@ -181,13 +181,13 @@ const Navbar = () => {
                 </NavLink>
               ))}
 
-              <div className={cn("flex flex-col gap-2", token ? "pt-4 mt-2 border-t border-[#98e1d7]/30" : "pt-2")}>
+              <div className={cn("flex flex-col gap-2", token ? "pt-4 mt-2 border-t border-slate-100" : "pt-2")}>
                 {!token ? (
                   <>
                     <Link
                       to="/login"
                       onClick={() => setIsOpen(false)}
-                      className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-[#3b8ea0] font-medium hover:bg-[#d0f6e3] transition-colors"
+                      className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-slate-700 font-semibold hover:bg-slate-50 transition-colors"
                     >
                       <LogIn size={18} />
                       Login
