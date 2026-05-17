@@ -5,8 +5,10 @@ import { CheckCircle2, Calendar, Flame, ArrowRight } from "lucide-react";
 import LiveClock from "../components/Dashboard/LiveClock";
 
 import StatCard from "../components/Dashboard/StatCard";
+import InsightCard from "../components/Dashboard/InsightCard";
 import TaskPreview from "../components/Dashboard/TaskPreview";
 import DashboardTasks from "../components/Dashboard/DashboardTasks";
+import TaskChart from "../components/Dashboard/TaskChart";
 import api from "../api/axios.js";
 import useTasks from "../hooks/useTasks.js";
 import { getGreeting } from "../utils/getGreeting.js";
@@ -92,8 +94,23 @@ export default function Dashboard() {
     fetchRoutines();
   }, []);
 
+  const insights = [
+    {
+      icon: "🔥",
+      message: completedToday >= 3 ? "Great job! You're on a streak today." : "Keep going! Complete more tasks to build your streak."
+    },
+    {
+      icon: "📈",
+      message: weeklyCompletionPercent >= 50 ? `Great week! You've completed ${weeklyCompletionPercent}% of your tasks.` : "Focus on finishing your pending tasks for the week."
+    },
+    {
+      icon: "🎯",
+      message: `You have ${tasks.filter(t => t.status !== "Completed").length} total pending tasks.`
+    }
+  ];
+
   return (
-    <div className="min-h-screen w-full max-w-[1440px] mx-auto app-bg px-6 py-8 space-y-8 animate-in">
+    <div className="min-h-screen w-full mx-auto app-bg px-4 sm:px-6 py-8 space-y-8 animate-in">
       {/* Header */}
       <header className="animate-in flex flex-col lg:flex-row justify-between items-start lg:items-center p-6 shadow-md rounded-xl bg-(--surface) gap-4">
          {/* Display time */}
@@ -117,8 +134,8 @@ export default function Dashboard() {
       </header>
 
       {/* Stats Row */}
-      <section className="flex flex-col lg:flex-row gap-6 w-full">
-        <div className="flex-1 animate-in delay-100">
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+        <div className="animate-in delay-100">
           <StatCard
             label="Today"
             value={`${completedToday} / ${totalToday}`}
@@ -126,7 +143,7 @@ export default function Dashboard() {
             icon={<CheckCircle2 size={20} />}
           />
         </div>
-        <div className="flex-1 animate-in delay-200">
+        <div className="animate-in delay-200">
           <StatCard
             label="This Week"
             value={`${weeklyCompletionPercent}%`}
@@ -134,12 +151,20 @@ export default function Dashboard() {
             icon={<Calendar size={20} />}
           />
         </div>
+        <div className="animate-in delay-300 h-full">
+          <InsightCard insights={insights} />
+        </div>
       </section>
 
       {/* Today's Tasks */}
       <div className="w-full animate-in delay-200">
         <DashboardTasks />
       </div>
+
+      {/* Chart Section */}
+      <section className="w-full animate-in delay-200">
+        <TaskChart tasks={tasks} />
+      </section>
 
       {/* Bottom Row: TaskPreview + Routines */}
       <section className="flex animate-in delay-200 flex-col lg:flex-row gap-6 w-full">
