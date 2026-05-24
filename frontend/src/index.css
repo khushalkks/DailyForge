@@ -1,5 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+* {
+  font-family: 'Outfit', sans-serif;
+}
 
 :root {
   /* Premium Light Slate Palette */
@@ -35,38 +40,23 @@ body {
 }
 
 .dark {
-  /* App background (outer layout) - deep premium slate dark blue-gray */
   --bg: #0f172a;
-
-  /* Surfaces: cards, modals, panels - charcoal slate */
   --surface: #1e293b;
-
-  /* Primary action color (CTAs) - vibrant teal */
   --primary: #4eb7b3;
-
-  /* Hover / active feedback */
   --primary-hover: #5ec7c3;
-
-  /* Accents: highlights, tags, blocks */
   --accent: #1e2e30;
-
-  /* Main readable text - crisp slate-off-white */
   --text-main: #f8fafc;
-
-  /* Secondary / low-priority text */
   --text-muted: #94a3b8;
-
-  /* Soft separators and outlines */
   --border: #334155;
 }
 
-html.dark, html.dark body {
+html.dark,
+html.dark body {
   background-color: var(--bg);
   color: var(--text-main);
   color-scheme: dark;
 }
 
-/* Utility Classes */
 @layer utilities {
   /* Layout backgrounds with a breathtaking premium mesh gradient */
   .app-bg {
@@ -85,7 +75,6 @@ html.dark, html.dark body {
     backdrop-filter: blur(16px);
   }
 
-  /* Text roles */
   .text-main {
     color: var(--text-main);
   }
@@ -94,7 +83,6 @@ html.dark, html.dark body {
     color: var(--text-muted);
   }
 
-  /* Structural borders */
   .border-soft {
     border: 1px solid var(--border);
   }
@@ -150,10 +138,7 @@ html.dark, html.dark body {
   .card-primary {
     @apply shadow-md;
   }
-}
 
-@layer utilities {
-  /* Fade + slide up on mount */
   .animate-in {
     animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
@@ -162,13 +147,14 @@ html.dark, html.dark body {
     animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
-  /* Stagger helpers */
   .delay-100 {
     animation-delay: 0.08s;
   }
+
   .delay-200 {
     animation-delay: 0.16s;
   }
+
   .delay-300 {
     animation-delay: 0.24s;
   }
@@ -181,6 +167,7 @@ html.dark, html.dark body {
   .hover-lift:hover {
     transform: translateY(-2px);
   }
+}
 
   @keyframes fadeUp {
     from {
@@ -191,5 +178,10 @@ html.dark, html.dark body {
       opacity: 1;
       transform: translateY(0);
     }
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
