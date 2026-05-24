@@ -107,8 +107,7 @@ html.dark, html.dark body {
          rounded-xl
          transition-all duration-300
          select-none
-         cursor-pointer
-         hover-lift;
+         cursor-pointer;
   }
 
   .btn-primary {

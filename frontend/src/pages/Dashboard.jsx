@@ -101,32 +101,64 @@ export default function Dashboard() {
     fetchRoutines();
   }, []);
 
-const openDuplicateModal = (routine) => {
-  setRoutineToDuplicate(routine);
-  setDuplicateTargetDay(routine.items[0]?.day || DAYS_OF_WEEK[0]);
-};
+  const openDuplicateModal = (routine) => {
+    setRoutineToDuplicate(routine);
+    setDuplicateTargetDay(routine.items[0]?.day || DAYS_OF_WEEK[0]);
+  };
 
-const closeDuplicateModal = () => {
-  setRoutineToDuplicate(null);
-  setDuplicateTargetDay(DAYS_OF_WEEK[0]);
-};
+  const closeDuplicateModal = () => {
+    setRoutineToDuplicate(null);
+    setDuplicateTargetDay(DAYS_OF_WEEK[0]);
+  };
 
-const handleDuplicateRoutine = async () => {
-  if (!routineToDuplicate) return;
+  const handleDuplicateRoutine = async () => {
+    if (!routineToDuplicate) return;
+
+    try {
+      setDuplicatingRoutineId(routineToDuplicate._id);
+
+      const res = await api.post(
+        `/routines/${routineToDuplicate._id}/duplicate`,
+        { targetDay: duplicateTargetDay }
+      );
+
+      if (res.data.routine) {
+        setSavedRoutines((prevRoutines) => [
+          res.data.routine,
+          ...prevRoutines,
+        ]);
+      } else {
+        await fetchRoutines();
+      }
+
+      closeDuplicateModal();
+    } catch (err) {
+      console.error(err);
+      alert("Failed to duplicate routine");
+    } finally {
+      setDuplicatingRoutineId(null);
+    }
+  };
 
   const insights = [
     {
       icon: "🔥",
-      message: completedToday >= 3 ? "Great job! You're on a streak today." : "Keep going! Complete more tasks to build your streak."
+      message:
+        completedToday >= 3
+          ? "Great job! You're on a streak today."
+          : "Keep going! Complete more tasks to build your streak.",
     },
     {
       icon: "📈",
-      message: weeklyCompletionPercent >= 50 ? `Great week! You've completed ${weeklyCompletionPercent}% of your tasks.` : "Focus on finishing your pending tasks for the week."
+      message:
+        weeklyCompletionPercent >= 50
+          ? `Great week! You've completed ${weeklyCompletionPercent}% of your tasks.`
+          : "Focus on finishing your pending tasks for the week.",
     },
     {
       icon: "🎯",
-      message: `You have ${tasks.filter(t => t.status !== "Completed").length} total pending tasks.`
-    }
+      message: `You have ${tasks.filter((t) => t.status !== "Completed").length} total pending tasks.`,
+    },
   ];
 
   return (
